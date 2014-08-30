@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="row placeholders">
+    {% for c in movies %}
+
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <a href="{% url "details"%}?{{ c.id }}"><img id="{{ c.id }}" src="{{ c.posters.detailed }}" class="img-responsive" alt="Generic placeholder thumbnail"></a>
+        <h4>{{ c.title }}</h4>
+        <span class="text-muted">{{ c.year }}</span>
+    </div>
+    
+    {% endfor %}
+{% endblock %}

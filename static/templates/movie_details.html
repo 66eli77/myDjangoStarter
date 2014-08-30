@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+    {% for c in movies %}
+        {% if request.get_full_path|slice:"10:" == c.id %}
+            <h1 class="page-header"><span style="font-size:30px; font-style: italic"><b>{{ c.title }}</b></span></h1>
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <a href="{{ c.posters.original }}" target="_blank"><img style="border-radius: 0" src="{{ c.posters.detailed }}" alt="Generic placeholder thumbnail"></img></a>
+                </div>
+                
+                <div class="col-xs-6 col-sm-3 placeholder"></div>
+            
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <p style="font-size: 18px; width: 250px" align="left"><span style="color: #999999">{{ c.mpaa_rating }} <br>
+                        </span>Length: {{ c.runtime }} minutes<br>Release: {{ c.release_dates.theater }}
+                        <br>Critics Rating:  {{ c.ratings.critics_rating }}<br>Critics Score:   {{ c.ratings.critics_score }}
+                        <br>Audience Score:   {{ c.ratings.audience_score }}</p>
+                </div>
+            
+            </div>
+            
+            <h6 class="sub-header">Movie Info</h6>
+            <div class="table-responsive">
+                <p>{{ c.synopsis }}</p>
+                <h5 style="color: #990033">CAST:</h5>
+                
+                <ul id="results">
+                {% for actor in c.abridged_cast %}
+                    <li> <span style="color: #990033">{{actor.name}}</span> plays {{actor.characters.0}}</li>
+                {% endfor %}
+                </ul>
+            
+            </div>
+            
+        {% endif %}
+    {% endfor %}
+    
+{% endblock %}
